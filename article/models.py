@@ -24,4 +24,8 @@ class Comment(models.Model):
     def __str__(self):
         return self.article.title
 
+class NabisCount(models.Model):
+    ncount = models.IntegerField(default=0)
+    def __str__(self):
+        return str(NabisCount.ncount)
 

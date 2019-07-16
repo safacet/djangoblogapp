@@ -26,6 +26,7 @@ urlpatterns = [
     path('articles/', include("article.urls")),
     path('user/', include("user.urls")),
     path('dashboard/', views.dashboard, name = "dashboard" ),
+    path('nabis/', views.nabis, name = "nabis")
 
 ]
 

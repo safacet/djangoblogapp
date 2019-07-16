@@ -7,4 +7,14 @@
     <p>Bu blogda siz de kendi deneyimlerinizi ve bilgileriniz paylaşabilirsiniz!</p>
 </div>
 
+<div class="jumbotron">
+    <h1 class="display-4">Merhabalar!</h1>
+    <p class="lead">Bu bir nabiş şımartma alanıdır. Ne kadar tık o kadar ekmek</p>
+    <hr class="my-4">
+    <p>Nabiş {% if nabis %} {% for n in nabis %} {{n.ncount}} {% endfor %} {% else %} 0 {% endif %} kere sevilmiş</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/nabis" role="button"><i class="fas fa-heart"></i>Seni Seviyorum Nabişim <i class="fas fa-heart"></i></a>
+    </p>
+  </div>
+
 {% endblock body %}

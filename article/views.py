@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, reverse
 from .forms import ArticleForm
-from .models import Article, Comment
+from .models import Article, Comment, NabisCount
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -12,7 +12,8 @@ def articles(request):
 
 
 def index(request):
-    return render(request, "index.html")
+    nabis = NabisCount.objects.filter(id = 1)
+    return render(request, "index.html", {"nabis": nabis})
 
 def about(request):
     return render(request, "about.html")
@@ -75,3 +76,14 @@ def searchArticle(request):
         "contents": articles_content
     }
     return render(request, "search.html", context)
+
+def nabis(request):
+    if NabisCount.objects.filter(id = 1):
+        nabis = NabisCount.objects.filter(id = 1).first()
+        nabis.ncount += 1
+        nabis.save()
+    else:
+        nabis = NabisCount()
+        nabis.ncount +=1
+        nabis.save()
+    return redirect("index")
