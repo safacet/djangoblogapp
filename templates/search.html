@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="col-md-10 offset-md-0">
+        <div class="col-lg-10">
+        <h2>Arama Sonuçları</h2>
+        <hr>
+        </div>
+        </div>
+        <!--Arama Cubugu-->
+        <div class="col-md-10 offset-md-0">
+                <div class="col-lg-10">
+          <form action="{% url 'article:search' %}" class="blog-search-form" method="POST">
+            {% csrf_token %}
+              <div class="input-group">
+                
+                <input type="text" class="form-control" name="keyword" placeholder="Makalelerde Ara">
+                <div class="input-group-append">
+                  <button class="btn btn-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <br>
+            <!-- Arama bitis-->
+            </div>
+        </div>
+{% if titles or contents %}
+
+            <div class="row">
+                {% if titles %}
+                
+                {% for article in titles %}
+<div class="col-md-10 offset-md-0">
+        <!-- Post Content Column -->
+        
+                <div class="col-lg-10">
+  
+                <!-- Title -->
+                <h1 class="mt-4"><a style="color: gray" href="{% url 'article:detail' article.id %}">{{article.title}}</a></h1>
+        
+                <!-- Author -->
+                <p class="lead">
+                  by
+                  {{article.author.username}}
+                </p>
+        
+                <hr>
+        
+                <!-- Date/Time -->
+                <p>{{article.created_date}}</p>
+        
+                <hr>
+        
+                <!-- Preview Image -->
+                <!-- <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">  -->
+                  {% if article.article_image %}
+                  <a href="{% url 'article:detail' article.id %}"><img src="{{article.article_image.url}}" alt=""></a>
+                  
+                  {% else %}
+                  <a href="{% url 'article:detail' article.id %}"><img src="{% static 'no-thumbnail.png' %}" alt=""></a>
+                  
+                  {% endif %}
+                <hr>
+        
+                <!-- Post Content -->
+                <p class="lead">
+                  {{article.content | safe | truncatewords:25}} <a style="color: #817d7d" href="{% url 'article:detail' article.id %}">Devamını Oku...</a>
+      
+                </p>
+        
+                <hr>
+      
+      
+                  </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if contents %}
+            {% for article in contents %}
+            
+            
+            <div class="col-md-10 offset-md-0">
+                    <!-- Post Content Column -->
+                    
+                <div class="col-lg-10">
+              
+                            <!-- Title -->
+                            <h1 class="mt-4"><a style="color: gray" href="/articles/article/{{article.id}}">{{article.title}}</a></h1>
+                    
+                            <!-- Author -->
+                            <p class="lead">
+                              by
+                              {{article.author.username}}
+                            </p>
+                    
+                            <hr>
+                    
+                            <!-- Date/Time -->
+                            <p>{{article.created_date}}</p>
+                    
+                            <hr>
+                    
+                            <!-- Preview Image -->
+                            <!-- <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">  -->
+                              {% if article.article_image %}
+                              <a href="/articles/article/{{article.id}}"><img src="{{article.article_image.url}}" alt=""></a>
+                              
+                              {% else %}
+                              <a href="/articles/article/{{article.id}}"><img src="{% static 'no-thumbnail.png' %}" alt=""></a>
+                              
+                              {% endif %}
+                            <hr>
+                    
+                            <!-- Post Content -->
+                            <p class="lead">
+                              {{article.content | safe | truncatewords:25}} <a style="color: #817d7d" href="/articles/article/{{article.id}}">Devamını Oku...</a>
+                  
+                            </p>
+                    
+                            <hr>
+                  
+                  
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        
+
+</div>
+<!-- /.row -->
+{% else %}
+<div class="col-md-10 offset-md-0">
+    <div class="col-lg-10">
+<div class="alert alert-danger"> <strong>Opps!</strong> Bu kriterde herhangi bir makale bulunmuyor.</div>
+</div>
+</div>
+{% endif %}
+
+{% endblock body %}
